@@ -22,5 +22,5 @@ then
   git commit -m "docs(docs): $VERSION"
   git push
   # publish
-  npm publish
+  npm publish --access=public
 fi
