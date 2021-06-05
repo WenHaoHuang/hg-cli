@@ -1,9 +1,9 @@
 {
   "name": "@hg-ui/hg-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "组件市场开发脚手架",
   "bin": {
-    "visual-cli": "bin/index.js"
+    "hg-cli": "bin/index.js"
   },
   "files": [
     "bin",
