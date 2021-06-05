@@ -1,0 +1,47 @@
+{
+  "name": "@hg-ui/hg-cli",
+  "version": "0.0.1",
+  "description": "组件市场开发脚手架",
+  "bin": {
+    "visual-cli": "bin/index.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "tpl",
+    "util"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WenHaoHuang/hg-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "components",
+    "vue"
+  ],
+  "author": "huangwenhao23@163.com",
+  "license": "ISC",
+  "engines": {
+    "node": ">=8.9.1"
+  },
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "commander": "^5.1.0",
+    "didyoumean": "^1.2.1",
+    "ejs": "^3.1.3",
+    "file-save": "^0.2.0",
+    "fs-extra": "^9.0.1",
+    "glob": "^7.1.6",
+    "inquirer": "^7.1.0",
+    "minimist": "^1.2.5",
+    "ora": "^4.0.4",
+    "process": "^0.11.10",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "runscript": "^1.5.0",
+    "semver": "^7.3.2",
+    "slash": "^3.0.0",
+    "uppercamelcase": "^3.0.0"
+  }
+}
