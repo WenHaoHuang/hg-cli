@@ -1,0 +1,13 @@
+import { buildProps } from './utils/props'
+
+import type { ExtractPropTypes } from './utils/types'
+
+
+export const <%= name %>Props = buildProps({} as const)
+
+export const <%= name %>Emits = {
+  'on-command': (cmd: string) => typeof cmd === 'string',
+}
+
+export type <%= componentName %>Props = ExtractPropTypes<typeof <%= name %>Props>
+export type <%= componentName %>Emits = typeof <%= name %>Emits

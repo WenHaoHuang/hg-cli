@@ -1,0 +1,15 @@
+import <%= componentName %> from './main.vue'
+
+import type { App, Plugin } from 'vue'
+
+export const H<%= componentName %>: Plugin = {
+  install: (app: App): void => {
+    app.component(<%= componentName %>.name, <%= componentName %>)
+  },
+}
+
+export { <%= componentName %> }
+
+export default H<%= componentName %>
+
+export * from './types-main'

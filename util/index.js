@@ -12,9 +12,9 @@ const process = require('process')
 const chalk = require('chalk')
 const fs = require('fs-extra')
 const inquirer = require('inquirer')
-const request = require('request')
+const got = require('got')
 const ejs = require('ejs')
-const package = require('./../package.json')
+const PKG = require('./../package.json')
 
 const log = (msg, color) => {
   let msgStr = msg instanceof Error ? msg.message : typeof msg == 'object' ? JSON.stringify(msg, null, 2) : msg
@@ -58,6 +58,23 @@ const quiz = (msg, backup) => {
     .then(({ input }) => input)
 }
 
+const select = (msg, backup) => {
+  return inquirer
+    .prompt([
+      {
+        name: 'version',
+        type: 'list',
+        default: backup,
+        message: msg,
+        choices: [
+          { key: 'a', name: 'Vue 2.x', value: 2 },
+          { key: 'b', name: 'Vue 3.x', value: 3 }
+        ]
+      }
+    ])
+    .then(({version}) => version)
+}
+
 const dirCheck = async (dir, { msg = '%s 已存在，确定要覆盖它么？', onlyCheck = false, defaultRemove = true } = {}) => {
   let exist = await fs.pathExists(dir)
   if (!exist) return 'na'
@@ -91,24 +108,27 @@ const generateProject = async (projectDir, tpl) => {
 }
 
 async function fetchProject(project) {
-  const uri = `https://registry.npmjs.org/${project}`
-  return await new Promise((resolve, reject) => {
-    request(
-      {
-        uri,
-        method: 'GET',
-        gzip: true
-      },
-      (error, response, body) => {
-        if (!error && response.statusCode == 200) {
-          const data = JSON.parse(body)
-          const latest = data['dist-tags'].latest
-          resolve(latest)
-        }
-        reject('1.0.0')
-      }
-    )
-  })
+  // const uri = `https://registry.npmjs.org/${project}`
+  // const response = await got(uri)
+  // console.log('response', response)
+  return '0.1.0';
+  // return await new Promise((resolve, reject) => {
+  //   got(
+  //     {
+  //       uri,
+  //       method: 'GET',
+  //       gzip: true
+  //     },
+  //     (error, response, body) => {
+  //       if (!error && response.statusCode == 200) {
+  //         const data = JSON.parse(body)
+  //         const latest = data['dist-tags'].latest
+  //         resolve(latest)
+  //       }
+  //       reject('1.0.0')
+  //     }
+  //   )
+  // })
 }
 
 
@@ -141,6 +161,9 @@ async function pleaseAnswerMe(questions) {
       case 'confirm':
         answer = await confirm(question.desc, question.default)
         break
+      case 'select':
+        answer = await select(question.desc, question.default)
+        break
       default:
         answer = (await quiz(question.desc, question.default)).trim()
     }
@@ -151,7 +174,7 @@ async function pleaseAnswerMe(questions) {
 
 async function checkVersion() {
   const newVersion = await fetchProject('@hg-ui/hg-cli')
-  if (newVersion !== package.version) {
+  if (newVersion !== PKG.version) {
     const msgStr = '\n\n\n您所使用的版本需要更新！\n\n> ' + chalk.cyan(`npm install -g @hg-ui/hg-cli@${newVersion}`) + '\n\n'
     console.log(msgStr)
     process.exit(1)

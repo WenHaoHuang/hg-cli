@@ -1,0 +1,10 @@
+@use 'sass:map';
+@use './var';
+
+@use 'mixins/var' as *;
+@use 'mixins/mixins' as *;
+
+@include b(<%= name %>) {
+  @include set-var($<%= name %>);
+  /* do something */
+}

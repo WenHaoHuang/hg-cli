@@ -1,0 +1,25 @@
+<template>
+  <div class="h-<%= name %>">
+    <%= name %>
+  </div>
+</template>
+<script lang="ts">
+import {
+  defineComponent
+} from 'vue'
+import { <%= name %>Props, <%= name %>Emits } from './types-main'
+
+export default defineComponent({
+  name: 'H<%= componentName %>',
+
+  props: <%= name %>Props,
+  emits: <%= name %>Emits,
+
+  setup(props, context) {
+    return {}
+  }
+})
+</script>
+<style lang="scss">
+@import './style/index.scss';
+</style>

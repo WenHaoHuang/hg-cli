@@ -1,0 +1,12 @@
+// GlobalComponents for Volar
+declare module 'vue' {
+  export interface GlobalComponents {
+    H<%= componentName %>: typeof import('@hg-ui/h-<%= name %>')['<%= componentName %>']
+  }
+}
+
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {}
+}
+
+export {}
